@@ -1,55 +1,5 @@
 # ingress-poc
 
-
-I want to implement k8s ingress based routing implementation of services. 
-The routing must be based on path based routing. 
-			  
-		
-==========================================================
-
-Open Powershell
-	1. minikube start
-	2. minikube addons enable ingress
-	3. create two simple services (app1 and app2) each with their own deployment and service.
-	4. kubectl apply -f app1.yaml
-	5. kubectl apply -f app2.yaml
-	6. Create Ingress Resource
-	7. kubectl apply -f ingress.yaml
-	8. Map the domain example.com to the Minikube cluster's IP address on your local machine.
-		a. Add <minikube IP> example.com to etc/hosts
-		b. Note - 
-			i. Normally, minikube tunnel assigns EXTERNAL-IP as 192.168.49.2 (your Minikube VM IP).
-			ii. But on corporate laptops or with restricted networks:
-			iii. minikube tunnel falls back to binding the EXTERNAL-IP to 127.0.0.1 (localhost)
-			iv. So you example.com ? 127.0.0.1 to make http://example.com/app1 work.
-			v. This is will the OS "When I request http://example.com, actually send the request to 127.0.0.1."
-		c. Alos, use minikube tunnel while testing
-			i. In cloud platforms (like AWS/GCP), when you create a LoadBalancer-type service, a real external IP is assigned.
-			ii. But Minikube is local — there’s no cloud provider to assign a real IP.
-			iii. minikube tunnel acts as a local cloud proxy:
-				1) It simulates a LoadBalancer by forwarding traffic from your host (Windows) to the service inside Minikube.
-				2) It exposes the EXTERNAL-IP (like 127.0.0.1) that you saw in
-					a) kubectl get svc -n ingress-nginx
-	9. Check ingress controller type
-		a. kubectl get svc -n ingress-nginx
-		b. If it is of type nodeport, change it to LoadBalancer  by
-			i. kubectl patch svc ingress-nginx-controller -n ingress-nginx --patch-file=patch.json
-		c. Because in Kubernetes, Ingress only works when the Ingress Controller is exposed to traffic from outside the cluster.
-		d. If the Ingress Controller is ClusterIP or NodePort:
-			i. You can't hit it cleanly via http://example.com on port 80.
-			ii. Your browser can't talk to it directly without extra port tricks.
-		e. If it’s a LoadBalancer (with minikube tunnel):
-			i. The controller gets an external IP (like 127.0.0.1 or 192.168.49.2).
-			ii. You can map example.com ? that IP and open http://example.com in your browser.
-			iii. It behaves like it would in AWS/GCP — clean and realistic.
-	10. Execute
-		a. Minikube tunnel
-		b. curl http://example.com/app1
-			i. This should return Content - Hello from App1
-		c. curl http://example.com/app2
-			i. This should return Content - Hello from App2
-
-
 			
 		
 			
