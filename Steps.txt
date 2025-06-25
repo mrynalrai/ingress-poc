@@ -1,8 +1,4 @@
-# ingress-poc
-
-
-I want to implement k8s ingress based routing implementation of services. 
-The routing must be based on path based routing. 
+Implement **path-based routing** using Kubernetes Ingress with Minikube. You'll deploy two simple services (`app1` and `app2`) and route traffic to them based on the request path using NGINX Ingress Controller.
 			  
 		
 ==========================================================
@@ -21,11 +17,11 @@ Open Powershell
 			i. Normally, minikube tunnel assigns EXTERNAL-IP as 192.168.49.2 (your Minikube VM IP).
 			ii. But on corporate laptops or with restricted networks:
 			iii. minikube tunnel falls back to binding the EXTERNAL-IP to 127.0.0.1 (localhost)
-			iv. So you example.com ? 127.0.0.1 to make http://example.com/app1 work.
+			iv. So you example.com â†’ 127.0.0.1 to make http://example.com/app1 work.
 			v. This is will the OS "When I request http://example.com, actually send the request to 127.0.0.1."
 		c. Alos, use minikube tunnel while testing
 			i. In cloud platforms (like AWS/GCP), when you create a LoadBalancer-type service, a real external IP is assigned.
-			ii. But Minikube is local — there’s no cloud provider to assign a real IP.
+			ii. But Minikube is local â€” thereâ€™s no cloud provider to assign a real IP.
 			iii. minikube tunnel acts as a local cloud proxy:
 				1) It simulates a LoadBalancer by forwarding traffic from your host (Windows) to the service inside Minikube.
 				2) It exposes the EXTERNAL-IP (like 127.0.0.1) that you saw in
@@ -38,10 +34,10 @@ Open Powershell
 		d. If the Ingress Controller is ClusterIP or NodePort:
 			i. You can't hit it cleanly via http://example.com on port 80.
 			ii. Your browser can't talk to it directly without extra port tricks.
-		e. If it’s a LoadBalancer (with minikube tunnel):
+		e. If itâ€™s a LoadBalancer (with minikube tunnel):
 			i. The controller gets an external IP (like 127.0.0.1 or 192.168.49.2).
-			ii. You can map example.com ? that IP and open http://example.com in your browser.
-			iii. It behaves like it would in AWS/GCP — clean and realistic.
+			ii. You can map example.com â†’ that IP and open http://example.com in your browser.
+			iii. It behaves like it would in AWS/GCP â€” clean and realistic.
 	10. Execute
 		a. Minikube tunnel
 		b. curl http://example.com/app1
