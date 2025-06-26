@@ -1,0 +1,17 @@
+Migration to Helm
+			  
+==========================================================
+
+Open Powershell
+	1. Create templates for deployment, service and ingress
+	2. Install helm - https://github.com/helm/helm?tab=readme-ov-file
+	3. Create values.yaml for app1 and app2
+	4. Execute
+		a. helm install app1 . -f app1/values.yaml 
+		b. helm install app2 . -f app2/values.yaml
+	5. Execute
+		a. Minikube tunnel
+		b. curl http://example.com/app1
+			i. This should return Content - Hello from App1
+		c. curl http://example.com/app2
+			i. This should return Content - Hello from App2

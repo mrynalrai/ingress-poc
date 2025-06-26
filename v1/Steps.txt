@@ -1,6 +1,5 @@
-Implement **path-based routing** using Kubernetes Ingress with Minikube. You'll deploy two simple services (`app1` and `app2`) and route traffic to them based on the request path using NGINX Ingress Controller.
+Implement path-based routing using Kubernetes Ingress with Minikube. Deploy two simple services (`app1` and `app2`) and route traffic to them based on the request path using NGINX Ingress Controller.
 			  
-		
 ==========================================================
 
 Open Powershell
