@@ -1,0 +1,38 @@
+service:
+  name: app3-service
+  port: 80
+  targetPort: 8080
+  
+deployment:
+  name: app3
+
+selectorAppLabel: app3
+  
+replicaCount: 1
+
+image:
+  repository: hashicorp/http-echo
+
+containerPort: 8080
+containerArgs:
+  - "-text=Hello from App3"
+  - "-listen=:8080"
+
+ingressPort: 80
+ingress:
+  host: example.com
+  path: /
+ingressAnnotations:
+  nginx.ingress.kubernetes.io/rewrite-target: /
+
+extraIngressRules: 
+  - host: example.com
+    http:
+      paths:
+        - path: /app3
+          pathType: Prefix
+          backend:
+            service:
+              name: app3-service
+              port:
+                number: 80
