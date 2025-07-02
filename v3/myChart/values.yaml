@@ -1,0 +1,38 @@
+service:
+  name: schema-defined-app-service
+  port: 80
+  targetPort: 8080
+  
+deployment:
+  name: schema-defined-app
+
+selectorAppLabel: schema-defined-app
+  
+replicaCount: 1
+
+image:
+  repository: hashicorp/http-echo
+
+containerPort: 8080
+containerArgs:
+  - "-text=Hello from schema-defined-app"
+  - "-listen=:8080"
+
+ingressPort: 80
+ingress:
+  host: schema-defined-app.com
+  path: /
+ingressAnnotations:
+  nginx.ingress.kubernetes.io/rewrite-target: /
+
+extraIngressRules: 
+  - host: schema-defined-app.com
+    http:
+      paths:
+        - path: /path1
+          pathType: Prefix
+          backend:
+            service:
+              name: schema-defined-app-service
+              port:
+                number: 80

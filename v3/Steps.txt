@@ -1,0 +1,6 @@
+Using Schema Files for validation
+			  
+==========================================================
+
+Open Powershell
+	1. Run  helm lint

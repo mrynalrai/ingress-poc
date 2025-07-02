@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "service": {
+            "type": "object",
+            "properties": {
+                "name": { "type": "string" },
+                "port": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 65535
+                },
+                "targetPort": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 65535
+                }
+            },
+            "required": [ "name", "port", "targetPort" ]
+        },
+        "deployment": {
+            "type": "object",
+            "properties": {
+                "name": { "type": "string" }
+            },
+            "required": [ "name" ]
+        },
+        "selectorAppLabel": {
+            "type": "string"
+        },
+        "replicaCount": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "repository": { "type": "string" }
+            },
+            "required": [ "repository" ]
+        },
+        "containerPort": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65535
+        },
+        "containerArgs": {
+            "type": "array",
+            "items": { "type": "string" }
+        },
+        "ingressPort": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65535
+        },
+        "ingress": {
+            "type": "object",
+            "properties": {
+                "host": {
+                    "type": "string",
+                    "format": "hostname"
+                },
+                "path": { "type": "string" }
+            },
+            "required": [ "host", "path" ]
+        },
+        "ingressAnnotations": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+        },
+        "extraIngressRules": {
+            "type": "array",
+            "items": { "type": "object" }
+        }
+    },
+    "required": [ "service", "deployment", "selectorAppLabel", "replicaCount", "image", "containerPort", "containerArgs", "ingressPort", "ingress" ]
+}
